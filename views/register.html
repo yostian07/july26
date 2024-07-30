@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="register.css">
+  <title>Registrar Usuario - July26</title>
+</head>
+<body>
+  <div class="container">
+    <div class="screen">
+      <div class="screen__content">
+        <form class="register" id="registroUsuario">
+          <div class="register__field">
+            <i class="register__icon fas fa-user"></i>
+            <input type="text" class="register__input" placeholder="Nombre" id="nombre">
+          </div>
+          <div class="register__field">
+            <i class="register__icon fas fa-envelope"></i>
+            <input type="email" class="register__input" placeholder="Correo" id="correo">
+          </div>
+          <div class="register__field">
+            <i class="register__icon fas fa-lock"></i>
+            <input type="password" class="register__input" placeholder="Contraseña" id="contraseña">
+          </div>
+          <button class="button register__submit">
+            <span class="button__text">Registrarse</span>
+            <i class="button__icon fas fa-chevron-right"></i>
+          </button>
+          <div class="links">
+            <a href="/login" id="login-link">¿Ya tienes cuenta? Inicia sesión</a>
+          </div>        
+        </form>
+      </div>
+      <div class="screen__background">
+        <span class="screen__background__shape screen__background__shape4"></span>
+        <span class="screen__background__shape screen__background__shape3"></span>    
+        <span class="screen__background__shape screen__background__shape2"></span>
+        <span class="screen__background__shape screen__background__shape1"></span>
+      </div>    
+    </div>
+  </div>
+  <script>
+    document.getElementById('registroUsuario').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value;
+      const correo = document.getElementById('correo').value;
+      const contraseña = document.getElementById('contraseña').value;
+      
+      // Opcionalmente, puedes añadir lógica para mostrar un spinner
+      // Ejemplo: document.getElementById('spinner').classList.remove('hidden');
+  
+      fetch('/usuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, correo, contraseña })
+      }).then(response => response.json()).then(data => {
+        // Opcionalmente, ocultar el spinner
+        // Ejemplo: document.getElementById('spinner').classList.add('hidden');
+  
+        if (data.success) {
+          window.location.href = '/';  // Redirigir al inicio o a una página específica
+        } else {
+          alert(data.message);  // Mostrar error si el registro falla
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+        alert('Error al registrar.');
+      });
+    });
+  </script>
+  
+</body>
+</html>

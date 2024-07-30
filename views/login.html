@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="login.css">
+  <title>Login - July26</title>
+</head>
+<body>
+  <div class="container">
+    <div class="screen">
+      <div class="screen__content">
+        <form class="login" id="login">
+          <div class="login__field">
+            <i class="login__icon fas fa-user"></i>
+            <input type="text" class="login__input" placeholder="Email" id="loginCorreo">
+          </div>
+          <div class="login__field">
+            <i class="login__icon fas fa-lock"></i>
+            <input type="password" class="login__input" placeholder="Password" id="loginContraseña">
+          </div>
+          <button class="button login__submit">
+            <span class="button__text">Log In</span>
+            <i class="button__icon fas fa-chevron-right"></i>
+          </button>
+          <div class="links">
+            <a href="#!" id="forgot-password">¿Olvidaste tu contraseña?</a>
+            <a href="/register">Registrarse</a>
+          </div>        
+        </form>
+        <div class="social-login">
+          <h3>July26</h3>
+          <div class="social-icons">
+            <a href="#" class="social-login__icon fab fa-instagram"></a>
+            <a href="#" class="social-login__icon fab fa-facebook"></a>
+            <a href="#" class="social-login__icon fab fa-twitter"></a>
+          </div>
+        </div>
+      </div>
+      <div class="screen__background">
+        <span class="screen__background__shape screen__background__shape4"></span>
+        <span class="screen__background__shape screen__background__shape3"></span>    
+        <span class="screen__background__shape screen__background__shape2"></span>
+        <span class="screen__background__shape screen__background__shape1"></span>
+      </div>    
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('login').addEventListener('submit', function(e) {
+      e.preventDefault(); // Evita que el formulario se envíe de la manera tradicional.
+      const correo = document.getElementById('loginCorreo').value;
+      const contraseña = document.getElementById('loginContraseña').value;
+
+      fetch('/usuarios/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ correo, contraseña })
+      }).then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            if (data.isAdmin) {
+              window.location.href = '/admin'; // Redirige al usuario a la página de administración
+            } else {
+              window.location.href = '/'; // Redirige al usuario a la página principal
+            }
+          } else {
+            alert(data.error); // Muestra mensaje de error
+          }
+        }).catch(error => {
+          console.error('Error:', error);
+          alert('Error al iniciar sesión.');
+        });
+    });
+  </script>
+</body>
+</html>

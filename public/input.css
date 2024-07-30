@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md bg-primary px-8 py-2 text-sm font-medium text-white shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-red {
+    @apply bg-red-500 hover:bg-red-600;
+  }
+  .text-muted-foreground {
+    @apply text-gray-400;
+  }
+  .bg-primary {
+    @apply bg-gradient-to-r from-orange-500 to-pink-500;
+  }
+  .bg-background {
+    @apply bg-gray-900;
+  }
+  .hover-bg-primary {
+    @apply hover:bg-gradient-to-r from-orange-500 to-pink-500;
+  }
+  .hover-bg-primary-90 {
+    @apply hover:bg-gradient-to-r from-orange-500 to-pink-500 opacity-90;
+  }
+}

@@ -3,32 +3,146 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <title>Tienda Online</title>
+  <link href="/output.css" rel="stylesheet">
+  <title>July26 - Tienda Online</title>
 </head>
-<body>
-  <div class="container mx-auto">
-    <h1 class="text-3xl font-bold my-4">Tienda Online</h1>
-    <div id="productos" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
-  </div>
+<body class="bg-white text-gray-900">
+  <header class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-6 md:justify-start md:space-x-10">
+        <div class="flex justify-start lg:w-0 lg:flex-1">
+          <a href="/" class="text-lg font-semibold text-gray-900">July26</a>
+        </div>
+        <nav class="hidden md:flex space-x-10">
+          <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">Inicio</a>
+          <a href="/shop" class="text-base font-medium text-gray-500 hover:text-gray-900">Tienda</a>
+          <a href="/features" class="text-base font-medium text-gray-500 hover:text-gray-900">Novedades</a>
+          <a href="/about" class="text-base font-medium text-gray-500 hover:text-gray-900">Sobre Nosotros</a>
+          <a href="/contact" class="text-base font-medium text-gray-500 hover:text-gray-900">Contacto</a>
+        </nav>
+        <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+          <a href="/login" id="login-link" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">Iniciar Sesión</a>
+          <a href="/register" id="register-link"
+             class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+            Registrarse
+          </a>
+          <div id="user-menu" class="hidden relative">
+            <button id="user-button" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+              <img src="path/to/user-icon.png" alt="User Icon" class="h-8 w-8 rounded-full">
+            </button>
+            <div id="dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2">
+              <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Perfil</a>
+              <button id="logout-button" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full text-left">Cerrar Sesión</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="relative bg-gray-50 pt-16 pb-32 overflow-hidden">
+      <div class="relative">
+        <div class="text-center max-w-7xl mx-auto">
+          <h1 class="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl md:text-5xl">
+            Descubre los Mejores Productos para tu Estilo de Vida
+          </h1>
+          <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:max-w-3xl">
+            Explora nuestra colección seleccionada de productos de alta calidad que mejorarán tu experiencia diaria.
+          </p>
+          <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
+            <div class="rounded-md shadow">
+              <a href="/shop"
+                 class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                Comprar Ahora
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="bg-white py-12 md:py-24 lg:py-32">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="lg:text-center">
+          <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Productos Destacados</h2>
+          <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            Una selección de nuestros artículos más vendidos
+          </p>
+          <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+            Descubre las últimas tendencias de nuestra colección.
+          </p>
+        </div>
+
+        <div class="mt-10">
+          <div id="productos" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Productos cargados dinámicamente -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <script>
-    fetch('/productos')
-      .then(response => response.json())
-      .then(productos => {
-        const productosDiv = document.getElementById('productos');
-        productos.forEach(producto => {
-          const productoDiv = document.createElement('div');
-          productoDiv.className = 'border p-4';
-          productoDiv.innerHTML = `
-            <h2 class="text-xl font-bold">${producto.nombre}</h2>
-            <p>${producto.descripcion}</p>
-            <p class="text-lg font-bold">Precio: $${producto.precio}</p>
-            <button class="bg-green-500 text-white p-2 mt-2" onclick="location.href='https://wa.me/1234567890?text=Hola, quiero comprar ${producto.nombre}'">Comprar en WhatsApp</button>
-          `;
-          productosDiv.appendChild(productoDiv);
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('/usuarios/estado')
+        .then(response => response.json())
+        .then(data => {
+          const loginLink = document.getElementById('login-link');
+          const registerLink = document.getElementById('register-link');
+          const userMenu = document.getElementById('user-menu');
+
+          if (data.autenticado) {
+            loginLink.style.display = 'none';
+            registerLink.style.display = 'none';
+            userMenu.style.display = 'block';
+          } else {
+            loginLink.style.display = 'block';
+            registerLink.style.display = 'block';
+            userMenu.style.display = 'none';
+          }
         });
+
+      document.getElementById('logout-button').addEventListener('click', function() {
+        fetch('/usuarios/logout', { method: 'POST' })
+          .then(() => {
+            window.location.href = '/';
+          });
       });
+
+      document.getElementById('user-button').addEventListener('click', function() {
+        const dropdown = document.getElementById('dropdown');
+        dropdown.classList.toggle('hidden');
+      });
+
+      fetch('/productos')
+        .then(response => response.json())
+        .then(productos => {
+          const productosDiv = document.getElementById('productos');
+          productos.forEach(producto => {
+            const productoDiv = document.createElement('div');
+            productoDiv.className = 'group relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl';
+            productoDiv.innerHTML = `
+              <a class="absolute inset-0 z-10" href="/producto/${producto.id}">
+                <span class="sr-only">Ver Producto</span>
+              </a>
+              <img
+                src="${producto.imagen}"
+                alt="${producto.nombre}"
+                class="h-64 w-full object-cover transition-all duration-300 group-hover:scale-105"
+              />
+              <div class="p-4 bg-white">
+                <h3 class="text-lg font-semibold">${producto.nombre}</h3>
+                <p class="text-gray-500">$${producto.precio}</p>
+                <button class="inline-flex items-center justify-center text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 bg-indigo-600 text-white hover:bg-indigo-700 h-9 rounded-md px-3 mt-2">
+                  Añadir al Carrito
+                </button>
+              </div>
+            `;
+            productosDiv.appendChild(productoDiv);
+          });
+        });
+    });
   </script>
 </body>
 </html>

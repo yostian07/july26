@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/output.css" rel="stylesheet">
+  <title>Administrador - July26</title>
+</head>
+<body class="bg-gray-50">
+  <div class="flex min-h-screen w-full flex-col">
+    <div class="flex flex-col sm:gap-4 sm:py-4">
+      <header class="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-white px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+        <nav aria-label="breadcrumb" class="hidden md:flex">
+          <ol class="flex flex-wrap items-center gap-1.5 break-words text-sm text-gray-500 sm:gap-2.5">
+            <li class="inline-flex items-center gap-1.5">Administrador</li>
+          </ol>
+        </nav>
+        <div class="relative ml-auto flex-1 md:grow-0">
+          <input class="flex h-10 border border-gray-300 px-3 py-2 text-sm ring-offset-gray-50 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full rounded-lg bg-white pl-8 md:w-[200px] lg:w-[336px]" placeholder="Buscar..." type="search" />
+        </div>
+        <div class="ml-4 flex items-center gap-2">
+          <button class="inline-flex items-center justify-center whitespace-nowrap font-medium ring-offset-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300 bg-white hover:bg-gray-100 hover:text-gray-800 rounded-md px-3 h-7 gap-1 text-sm">
+            <span class="sr-only sm:not-sr-only">Exportar</span>
+          </button>
+          <button onclick="openModal()" class="inline-flex items-center justify-center whitespace-nowrap font-medium ring-offset-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-indigo-600 text-white hover:bg-indigo-700 rounded-md px-3 h-7 gap-1 text-sm">
+            <span class="sr-only sm:not-sr-only">Añadir</span>
+          </button>
+        </div>
+      </header>
+      <main class="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+        <div dir="ltr" data-orientation="horizontal">
+          <div class="flex items-center">
+            <div role="tablist" aria-orientation="horizontal" class="inline-flex h-9 items-center justify-center rounded-lg bg-gray-100 p-1 text-gray-500" tabindex="0" data-orientation="horizontal" style="outline: none;">
+              <button type="button" role="tab" aria-selected="true" aria-controls="radix-pedidos-content" data-state="active" id="radix-pedidos-trigger" class="tab-button inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-gray-50 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow" tabindex="-1" data-orientation="horizontal" data-radix-collection-item="">
+                Pedidos
+              </button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="radix-productos-content" data-state="inactive" id="radix-productos-trigger" class="tab-button inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-gray-50 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow" tabindex="-1" data-orientation="horizontal" data-radix-collection-item="">
+                Productos
+              </button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="radix-clientes-content" data-state="inactive" id="radix-clientes-trigger" class="tab-button inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-gray-50 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow" tabindex="-1" data-orientation="horizontal" data-radix-collection-item="">
+                Clientes
+              </button>
+              <!-- Añadir más botones según sea necesario -->
+            </div>
+          </div>
+
+          <div class="tab-content mt-2 ring-offset-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2">
+            <div id="radix-pedidos-content" class="tab-pane active">
+              <div class="rounded-lg border bg-white text-gray-900 shadow-sm">
+                <div class="flex flex-col space-y-1.5 p-6 px-7">
+                  <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Pedidos</h3>
+                  <p class="text-sm text-gray-500">Pedidos recientes de tu tienda.</p>
+                </div>
+                <div class="p-6">
+                  <div class="relative w-full overflow-auto">
+                    <table class="w-full caption-bottom text-sm">
+                      <thead class="border-b">
+                        <tr class="border-b transition-colors hover:bg-gray-50 data-[state=selected]:bg-gray-50">
+                          <th class="h-12 px-4 text-left align-middle font-medium text-gray-500 w-[100px]">Pedido</th>
+                          <th class="h-12 px-4 text-left align-middle font-medium text-gray-500 min-w-[150px]">Cliente</th>
+                          <th class="h-12 px-4 text-left align-middle font-medium text-gray-500 hidden md:table-cell">Canal</th>
+                          <th class="h-12 px-4 text-left align-middle font-medium text-gray-500 hidden md:table-cell">Fecha</th>
+                          <th class="h-12 px-4 align-middle font-medium text-gray-500 text-right">Total</th>
+                          <th class="h-12 px-4 text-left align-middle font-medium text-gray-500 hidden sm:table-cell">Estado</th>
+                          <th class="h-12 px-4 align-middle font-medium text-gray-500 text-right">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody id="pedidos-tbody">
+                        <!-- Pedidos dinámicos -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="radix-productos-content" class="tab-pane hidden">
+              <div class="rounded-lg border bg-white text-gray-900 shadow-sm">
+                <div class="flex flex-col space-y-1.5 p-6 px-7">
+                  <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Productos</h3>
+                  <p class="text-sm text-gray-500">Lista de productos disponibles.</p>
+                </div>
+                <div class="p-6">
+                  <div class="relative w-full overflow-auto">
+                    <table class="w-full caption-bottom text-sm">
+                      <thead class="border-b">
+                        <tr class="border-b transition-colors hover:bg-gray-50 data-[state=selected]:bg-gray-50">
+                          <th class="h-12 px-4 text-left align-middle font-medium text-gray-500 w-[100px]">ID</th>
+                          <th class="h-12 px-4 text-left align-middle font-medium text-gray-500 min-w-[150px]">Nombre</th>
+                          <th class="h-12 px-4 text-left align-middle font-medium text-gray-500 hidden md:table-cell">Descripción</th>
+                          <th class="h-12 px-4 align-middle font-medium text-gray-500 text-right">Precio</th>
+                          <th class="h-12 px-4 text-left align-middle font-medium text-gray-500 hidden sm:table-cell">Stock</th>
+                          <th class="h-12 px-4 align-middle font-medium text-gray-500 text-right">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody id="productos-tbody">
+                        <!-- Productos dinámicos -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="radix-clientes-content" class="tab-pane hidden">
+              <div class="rounded-lg border bg-white text-gray-900 shadow-sm">
+                <div class="flex flex-col space-y-1.5 p-6 px-7">
+                  <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Clientes</h3>
+                  <p class="text-sm text-gray-500">Lista de clientes registrados.</p>
+                </div>
+                <div class="p-6">
+                  <div class="relative w-full overflow-auto">
+                    <table class="w-full caption-bottom text-sm">
+                      <thead class="border-b">
+                        <tr class="border-b transition-colors hover:bg-gray-50 data-[state=selected]:bg-gray-50">
+                          <th class="h-12 px-4 text-left align-middle font-medium text-gray-500 w-[100px]">ID</th>
+                          <th class="h-12 px-4 text-left align-middle font-medium text-gray-500 min-w-[150px]">Nombre</th>
+                          <th class="h-12 px-4 text-left align-middle font-medium text-gray-500 hidden md:table-cell">Correo</th>
+                          <th class="h-12 px-4 align-middle font-medium text-gray-500 text-right">Fecha de Registro</th>
+                          <th class="h-12 px-4 align-middle font-medium text-gray-500 text-right">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody id="clientes-tbody">
+                        <!-- Clientes dinámicos -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Añadir más secciones según sea necesario -->
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal para añadir productos -->
+  <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+      <h3 class="text-xl font-bold mb-4">Añadir Producto</h3>
+      <form id="add-product-form" enctype="multipart/form-data">
+        <div class="mb-4">
+          <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+          <input type="text" id="nombre" name="nombre" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+        </div>
+        <div class="mb-4">
+          <label for="precio" class="block text-sm font-medium text-gray-700">Precio</label>
+          <input type="number" id="precio" name="precio" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+        </div>
+        <div class="mb-4">
+          <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+          <textarea id="descripcion" name="descripcion" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
+          <input type="number" id="stock" name="stock" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+        </div>
+        <div class="mb-4">
+          <label for="imagen" class="block text-sm font-medium text-gray-700">Imagen</label>
+          <input type="file" id="imagen" name="imagen" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+        </div>
+        <div class="flex justify-end">
+          <button type="button" onclick="closeModal()" class="mr-4 inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Cancelar</button>
+          <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Añadir</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Lógica de las pestañas
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabPanes = document.querySelectorAll('.tab-pane');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const target = document.getElementById(button.getAttribute('aria-controls'));
+
+          tabButtons.forEach(btn => btn.setAttribute('aria-selected', 'false'));
+          button.setAttribute('aria-selected', 'true');
+
+          tabPanes.forEach(pane => pane.classList.add('hidden'));
+          target.classList.remove('hidden');
+        });
+      });
+
+      // Cargar pedidos
+      fetch('/pedidos')
+        .then(response => response.json())
+        .then(pedidos => {
+          const tbody = document.getElementById('pedidos-tbody');
+          tbody.innerHTML = '';
+          pedidos.forEach(pedido => {
+            const tr = document.createElement('tr');
+            tr.classList.add('border-b', 'transition-colors', 'hover:bg-gray-50', 'data-[state=selected]:bg-gray-50');
+            tr.innerHTML = `
+              <td class="p-4 align-middle font-medium">#${pedido.id}</td>
+              <td class="p-4 align-middle">${pedido.cliente}</td>
+              <td class="p-4 align-middle hidden md:table-cell">${pedido.canal}</td>
+              <td class="p-4 align-middle hidden md:table-cell">${new Date(pedido.fecha).toLocaleDateString()}</td>
+              <td class="p-4 align-middle text-right">$${pedido.total}</td>
+              <td class="p-4 align-middle hidden sm:table-cell">${pedido.estado}</td>
+              <td class="p-4 align-middle text-right"><button onclick="verPedido(${pedido.id})" class="text-indigo-600 hover:text-indigo-900">Ver</button></td>
+            `;
+            tbody.appendChild(tr);
+          });
+        })
+        .catch(error => {
+          console.error('Error al cargar pedidos:', error);
+        });
+
+      // Cargar productos
+      fetch('/productos')
+        .then(response => response.json())
+        .then(productos => {
+          const tbody = document.getElementById('productos-tbody');
+          tbody.innerHTML = '';
+          productos.forEach(producto => {
+            const tr = document.createElement('tr');
+            tr.classList.add('border-b', 'transition-colors', 'hover:bg-gray-50', 'data-[state=selected]:bg-gray-50');
+            tr.innerHTML = `
+              <td class="p-4 align-middle font-medium">#${producto.id}</td>
+              <td class="p-4 align-middle">${producto.nombre}</td>
+              <td class="p-4 align-middle hidden md:table-cell">${producto.descripcion}</td>
+              <td class="p-4 align-middle text-right">$${producto.precio}</td>
+              <td class="p-4 align-middle hidden sm:table-cell">${producto.stock}</td>
+              <td class="p-4 align-middle text-right"><button onclick="verProducto(${producto.id})" class="text-indigo-600 hover:text-indigo-900">Ver</button></td>
+            `;
+            tbody.appendChild(tr);
+          });
+        })
+        .catch(error => {
+          console.error('Error al cargar productos:', error);
+        });
+
+      // Cargar clientes
+      fetch('/usuarios')
+        .then(response => response.json())
+        .then(clientes => {
+          const tbody = document.getElementById('clientes-tbody');
+          tbody.innerHTML = '';
+          clientes.forEach(cliente => {
+            const tr = document.createElement('tr');
+            tr.classList.add('border-b', 'transition-colors', 'hover:bg-gray-50', 'data-[state=selected]:bg-gray-50');
+            tr.innerHTML = `
+              <td class="p-4 align-middle font-medium">#${cliente.id}</td>
+              <td class="p-4 align-middle">${cliente.nombre}</td>
+              <td class="p-4 align-middle hidden md:table-cell">${cliente.correo}</td>
+              <td class="p-4 align-middle text-right">${new Date(cliente.fecha_registro).toLocaleDateString()}</td>
+              <td class="p-4 align-middle text-right"><button class="text-indigo-600 hover:text-indigo-900">Ver</button></td>
+            `;
+            tbody.appendChild(tr);
+          });
+        })
+        .catch(error => {
+          console.error('Error al cargar clientes:', error);
+        });
+
+      document.getElementById('add-product-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+
+        fetch('/productos', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Producto agregado exitosamente');
+            closeModal();
+            location.reload();
+          } else {
+            alert('Error al agregar producto');
+          }
+        })
+        .catch(error => {
+          console.error('Error al agregar producto:', error);
+          alert('Error al agregar producto');
+        });
+      });
+    });
+
+    function openModal() {
+      document.getElementById('modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.add('hidden');
+    }
+
+    function verProducto(id) {
+      fetch(`/productos/${id}`)
+        .then(response => response.json())
+        .then(producto => {
+          const modalContent = `
+            <h3 class="text-xl font-bold mb-4">Producto</h3>
+            <p><strong>Nombre:</strong> ${producto.nombre}</p>
+            <p><strong>Precio:</strong> ${producto.precio}</p>
+            <p><strong>Descripción:</strong> ${producto.descripcion}</p>
+            <p><strong>Stock:</strong> ${producto.stock}</p>
+            <img src="/images/${producto.imagen}" alt="${producto.nombre}" class="mt-4 w-full h-auto">
+          `;
+          const modal = document.createElement('div');
+          modal.className = 'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50';
+          modal.innerHTML = `
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+              ${modalContent}
+              <div class="flex justify-end">
+                <button onclick="this.parentElement.parentElement.parentElement.remove()" class="mr-4 inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Cerrar</button>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(modal);
+        })
+        .catch(error => {
+          console.error('Error al obtener producto:', error);
+          alert('Error al obtener producto');
+        });
+    }
+  </script>
+</body>
+</html>

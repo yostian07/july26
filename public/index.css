@@ -1,0 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f1ff; /* Un púrpura muy claro y sutil */
+  color: #4c3575; /* Un tono de púrpura más profundo pero claro para el texto */
+}
+
+header {
+  background-color: #e6dbff; /* Un púrpura claro suave */
+  padding: 20px;
+  text-align: center;
+}
+
+header .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #46344e; /* Púrpura más oscuro para el logo */
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.navbar a, .navbar .user-menu {
+  color: #46344e;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.navbar a:hover, .navbar a.active, .user-menu:hover {
+  background-color: #ffffff; /* Fondo blanco para el enlace activo/hover */
+  color: #46344e; /* Manteniendo el texto en púrpura oscuro para contraste */
+}
+
+.user-menu {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.user-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a, .dropdown-content button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.main {
+  padding: 20px;
+}
+
+.hero {
+  padding: 50px 20px;
+  background: linear-gradient(135deg, #e6dbff 0%, #f4f1ff 100%);
+  text-align: center;
+}
+
+.hero h1 {
+  margin-bottom: 20px;
+  font-size: 2.5em;
+}
+
+.hero p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.featured-products, .testimonials {
+  background-color: #ffffff;
+  color: #46344e;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.featured-products h2, .testimonials h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.product-item {
+  background: #f8f8f8;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.footer {
+  background-color: #e6dbff;
+  color: #46344e;
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer a {
+  color: #46344e;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.social-links a {
+  padding: 5px;
+  color: #46344e;
+}
+
+.social-links a:hover {
+  text-decoration: underline;
+}
